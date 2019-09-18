@@ -177,15 +177,18 @@ export class BookingDatesFormComponent extends Component {
                   bookingDatesRequired(startDateErrorMessage, endDateErrorMessage)
                 )}
               />
-              <FormattedMessage id={"BookingDatesForm.bookingTimeTitle"}/>
-              <FieldTimeSlot/>
-              <FormattedMessage id={"BookingDatesForm.numberOfPersons"}/>
+              <FieldTimeSlot
+                id="time_slot"
+                name="time_slot"
+                label="Input the number of persons"/>
               <br/>
               <FieldTextInput
+                id="number_of_persons"
                 type="text"
-                name="input1"
+                name="number_of_persons"
                 label="Input the number of persons:"
-                validate="true"
+                value="1"
+                placeholder="Enter the number"
               />
               {bookingInfo}
               <p className={css.smallPrint}>
