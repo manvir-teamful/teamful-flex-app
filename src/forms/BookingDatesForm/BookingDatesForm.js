@@ -180,7 +180,7 @@ export class BookingDatesFormComponent extends Component {
               <FieldTimeSlot
                 id="time_slot"
                 name="time_slot"
-                label="Input the number of persons"/>
+                label="Choose the time"/>
               <br/>
               <FieldTextInput
                 id="number_of_persons"
