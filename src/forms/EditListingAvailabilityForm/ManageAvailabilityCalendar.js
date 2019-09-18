@@ -17,7 +17,7 @@ import {
 } from '../../util/data';
 import { DAYS_OF_WEEK, propTypes } from '../../util/types';
 import { monthIdString, monthIdStringInUTC } from '../../util/dates';
-import { IconArrowHead, IconSpinner } from '../../components';
+import { IconArrowHead, IconSpinner, FieldTimeSlot } from '../../components';
 
 import css from './ManageAvailabilityCalendar.css';
 
@@ -454,7 +454,19 @@ class ManageAvailabilityCalendar extends Component {
             </span>
           </div>
         </div>
-        {fetchExceptionsError && fetchBookingsError ? (
+        <div className={css.timeAvailability} style={{ width: `${calendarGridWidth}px` }}>
+          <div className={css.timeAvailabilityRow}>
+            <FieldTimeSlot id="timeFrom" name="timeFrom" style={{ width: "200px"}}
+                         label={<FormattedMessage id="EditListingAvailabilityForm.timeAvailabilityFrom" />}
+                         validate=""/>
+          </div>
+          <div className={css.timeAvailabilityRow}>
+            <FieldTimeSlot id="timeTo" name="timeTo" style={{ width: "200px"}}
+                         label={<FormattedMessage id="EditListingAvailabilityForm.timeAvailabilityTo" />}
+                         validate=""/>
+          </div>
+        </div>
+          {fetchExceptionsError && fetchBookingsError ? (
           <p className={css.error}>
             <FormattedMessage
               id="EditListingAvailabilityForm.fetchMonthDataFailed"
@@ -513,5 +525,5 @@ ManageAvailabilityCalendar.propTypes = {
   availabilityPlan: propTypes.availabilityPlan.isRequired,
   onMonthChanged: func,
 };
-
+// TODO : debug the time availability connectivity to the Flex API
 export default ManageAvailabilityCalendar;

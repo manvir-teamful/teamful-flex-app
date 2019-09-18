@@ -9,7 +9,7 @@ import { required, bookingDatesRequired, composeValidators } from '../../util/va
 import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
 import config from '../../config';
-import { Form, PrimaryButton, FieldDateRangeInput } from '../../components';
+import { Form, PrimaryButton, FieldTFDateInput, FieldTimeSlot, FieldTextInput } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 
 import css from './BookingDatesForm.css';
@@ -157,7 +157,7 @@ export class BookingDatesFormComponent extends Component {
           return (
             <Form onSubmit={handleSubmit} className={classes}>
               {timeSlotsError}
-              <FieldDateRangeInput
+              <FieldTFDateInput
                 className={css.bookingDates}
                 name="bookingDates"
                 unitType={unitType}
@@ -166,7 +166,7 @@ export class BookingDatesFormComponent extends Component {
                 startDatePlaceholderText={startDatePlaceholderText}
                 endDateId={`${formId}.bookingEndDate`}
                 endDateLabel={bookingEndLabel}
-                endDatePlaceholderText={endDatePlaceholderText}
+                endDatePlaceholderText=""
                 focusedInput={this.state.focusedInput}
                 onFocusedInputChange={this.onFocusedInputChange}
                 format={identity}
@@ -176,6 +176,16 @@ export class BookingDatesFormComponent extends Component {
                   required(requiredMessage),
                   bookingDatesRequired(startDateErrorMessage, endDateErrorMessage)
                 )}
+              />
+              <FormattedMessage id={"BookingDatesForm.bookingTimeTitle"}/>
+              <FieldTimeSlot/>
+              <FormattedMessage id={"BookingDatesForm.numberOfPersons"}/>
+              <br/>
+              <FieldTextInput
+                type="text"
+                name="input1"
+                label="Input the number of persons:"
+                validate="true"
               />
               {bookingInfo}
               <p className={css.smallPrint}>

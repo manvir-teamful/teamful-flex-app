@@ -322,6 +322,27 @@
   margin: 0;
 }
 
+.timeAvailability {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.timeAvailabilityRow {
+  display: flex;
+  flex-grow: row;
+  line-height: 24px;
+  margin-right: 40px;
+  margin-top: 25px;
+  margin-bottom: 6px;
+}
+
+.timeAvailabilityText {
+  @apply --marketplaceH3FontStyles;
+  white-space: nowrap;
+  margin: 0;
+}
+
 @media (--viewportSmall) {
   /* day aka table cell content should have bigger paddings when there's more space */
   .day {
