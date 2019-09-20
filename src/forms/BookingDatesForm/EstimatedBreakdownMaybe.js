@@ -138,6 +138,7 @@ const EstimatedBreakdownMaybe = props => {
       unitType={unitType}
       transaction={tx}
       booking={tx.booking}
+      bookingData={props.bookingData}
     />
   );
 };

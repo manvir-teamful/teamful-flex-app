@@ -117,6 +117,15 @@ export class BookingDatesFormComponent extends Component {
             </p>
           ) : null;
 
+          let numOfPersons = 1;
+          const numOfPersonsObj = document.getElementById("number_of_persons");
+          if(numOfPersonsObj) {
+            const numOfPersonsVal = document.getElementById("number_of_persons").value;
+            if(/^[0-9]+$/.test(numOfPersonsVal)) {
+              numOfPersons = parseInt(numOfPersonsVal, 10);
+            }
+          }
+
           // This is the place to collect breakdown estimation data. See the
           // EstimatedBreakdownMaybe component to change the calculations
           // for customized payment processes.
@@ -130,7 +139,7 @@ export class BookingDatesFormComponent extends Component {
 
                   // NOTE: If unitType is `line-item/units`, a new picker
                   // for the quantity should be added to the form.
-                  quantity: 1,
+                  quantity: numOfPersons,
                 }
               : null;
           const bookingInfo = bookingData ? (

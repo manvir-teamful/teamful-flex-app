@@ -16,7 +16,7 @@ import LineItemUnitPriceMaybe from './LineItemUnitPriceMaybe';
 import LineItemPersonsMaybe from './LineItemPersonsMaybe';
 import LineItemBookingPeriod from './LineItemBookingPeriod';
 import LineItemUnitsMaybe from './LineItemUnitsMaybe';
-import LineItemSubTotalMaybe from './LineItemSubTotalMaybe';
+import LineItemTFSubTotalMaybe from './LineItemTFSubTotalMaybe';
 import LineItemCustomerCommissionMaybe from './LineItemCustomerCommissionMaybe';
 import LineItemCustomerCommissionRefundMaybe from './LineItemCustomerCommissionRefundMaybe';
 import LineItemProviderCommissionMaybe from './LineItemProviderCommissionMaybe';
@@ -28,7 +28,7 @@ import LineItemUnknownItemsMaybe from './LineItemUnknownItemsMaybe';
 import css from './BookingBreakdown.css';
 
 export const BookingBreakdownComponent = props => {
-  const { rootClassName, className, userRole, unitType, transaction, booking, intl } = props;
+  const { rootClassName, className, userRole, unitType, transaction, booking, bookingData, intl } = props;
 
   const isCustomer = userRole === 'customer';
   const isProvider = userRole === 'provider';
@@ -44,13 +44,13 @@ export const BookingBreakdownComponent = props => {
   return (
     <div className={classes}>
       <LineItemUnitPriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemPersonsMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemBookingPeriod transaction={transaction} booking={booking} unitType={unitType} />
+      <LineItemPersonsMaybe transaction={transaction} bookingData={bookingData} intl={intl} />
+      <LineItemBookingPeriod transaction={transaction} booking={booking} bookingData={bookingData} unitType={unitType} />
       <LineItemUnitsMaybe transaction={transaction} unitType={unitType} />
 
       <LineItemUnknownItemsMaybe transaction={transaction} intl={intl} />
 
-      <LineItemSubTotalMaybe
+      <LineItemTFSubTotalMaybe
         transaction={transaction}
         unitType={unitType}
         userRole={userRole}

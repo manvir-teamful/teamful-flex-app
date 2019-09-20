@@ -38,7 +38,7 @@ const BookingPeriod = props => {
 };
 
 const LineItemBookingPeriod = props => {
-  const { transaction, booking, unitType } = props;
+  const { transaction, booking, bookingData, unitType } = props;
 
   // Attributes: displayStart and displayEnd can be used to differentiate shown time range
   // from actual start and end times used for availability reservation. It can help in situations
@@ -59,8 +59,9 @@ const LineItemBookingPeriod = props => {
     item => item.code === unitType && !item.reversal
   );
 
-  const useQuantityForDayCount = isNightly || isDaily;
-  const count = useQuantityForDayCount && unitPurchase ? unitPurchase.quantity.toFixed() : dayCount;
+  //const useQuantityForDayCount = isNightly || isDaily;
+  //const count = useQuantityForDayCount && unitPurchase ? unitPurchase.quantity.toFixed() : dayCount;
+  const count = 1;
 
   const unitCountMessage = (
     <FormattedHTMLMessage
