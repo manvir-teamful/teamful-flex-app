@@ -101,11 +101,11 @@
     /* Gutter between inputs (when calendar is not visible) */
     & .startDateLabel,
     & .endDateLabel {
-      flex-basis: calc(50% - 12px);
+      flex-basis: 50%;
     }
 
     & .input {
-      flex-basis: calc(50% - 12px);
+      flex-basis: 50%;
       transition: all 0.15s ease-out;
     }
   }

@@ -13,6 +13,7 @@ import {
 } from '../../util/types';
 
 import LineItemUnitPriceMaybe from './LineItemUnitPriceMaybe';
+import LineItemPersonsMaybe from './LineItemPersonsMaybe';
 import LineItemBookingPeriod from './LineItemBookingPeriod';
 import LineItemUnitsMaybe from './LineItemUnitsMaybe';
 import LineItemSubTotalMaybe from './LineItemSubTotalMaybe';
@@ -43,6 +44,7 @@ export const BookingBreakdownComponent = props => {
   return (
     <div className={classes}>
       <LineItemUnitPriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
+      <LineItemPersonsMaybe transaction={transaction} unitType={unitType} intl={intl} />
       <LineItemBookingPeriod transaction={transaction} booking={booking} unitType={unitType} />
       <LineItemUnitsMaybe transaction={transaction} unitType={unitType} />
 

@@ -274,11 +274,11 @@
 
   /* Create gutter between inputs */
   & :global(.DateInput) {
-    width: calc(50% - 6px);
+    width: 50%;
     background: none;
 
     @media (--viewportMedium) {
-      width: calc(50% - 12px);
+      width: 50%;
     }
   }
 

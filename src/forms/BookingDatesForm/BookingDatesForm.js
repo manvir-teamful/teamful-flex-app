@@ -31,6 +31,14 @@ export class BookingDatesFormComponent extends Component {
     this.setState({ focusedInput });
   }
 
+  componentDidMount(){
+    let startDateObj = document.getElementById(`${this.props.formId}.bookingStartDate`);
+    let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
+
+    endDateObj.style.color = "white";
+    endDateObj.onfocus = () => { startDateObj.focus(); }
+  }
+
   // In case start or end date for the booking is missing
   // focus on that input, otherwise continue with the
   // default handleSubmit function.
@@ -148,8 +156,8 @@ export class BookingDatesFormComponent extends Component {
             .toDate();
           const startDatePlaceholderText =
             startDatePlaceholder || intl.formatDate(today, dateFormatOptions);
-          const endDatePlaceholderText =
-            endDatePlaceholder || intl.formatDate(tomorrow, dateFormatOptions);
+//          const endDatePlaceholderText =
+//            endDatePlaceholder || intl.formatDate(tomorrow, dateFormatOptions);
           const submitButtonClasses = classNames(
             submitButtonWrapperClassName || css.submitButtonWrapper
           );

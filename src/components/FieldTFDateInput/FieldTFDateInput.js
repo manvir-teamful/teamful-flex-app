@@ -13,7 +13,7 @@ import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
 import { ValidationError } from '../../components';
 
-import DateRangeInput from './DateRangeInput';
+import DateTFInput from './DateTFInput';
 import css from './FieldDateRangeInput.css';
 
 const MAX_MOBILE_SCREEN_WIDTH = 768;
@@ -136,7 +136,7 @@ class FieldTFDateInputComponent extends Component {
     return (
       <div className={classes}>
         {label}
-        <DateRangeInput {...inputProps} />
+        <DateTFInput {...inputProps} />
         <div
           className={classNames(css.inputBorders, {
             [css.mobileMargins]: useMobileMargins && !this.state.focusedInput,
@@ -188,5 +188,5 @@ const FieldTFDateInput = props => {
   return <Field component={FieldTFDateInputComponent} {...props} />;
 };
 
-export { DateRangeInput };
+export { DateTFInput };
 export default FieldTFDateInput;
