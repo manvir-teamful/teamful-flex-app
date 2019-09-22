@@ -18,7 +18,6 @@ import {
   isOutsideRangeFn,
   isBlockedBetween,
   apiEndDateToPickerDate,
-  pickerEndDateToApiDate,
 } from './DateRangeInput.helpers';
 
 import { IconArrowHead } from '../../components';
@@ -154,7 +153,7 @@ class DateTFInputComponent extends Component {
   componentDidMount() {
     document.getElementById("")
   }
-
+  /* eslint-disable no-unused-vars */
   onDatesChange(dates) {
     const { unitType, timeSlots } = this.props;
     const { startDate, tentEndDate } = dates;
@@ -183,6 +182,11 @@ class DateTFInputComponent extends Component {
     this.setState(() => ({
       currentStartDate: startDateAsDate,
     }));
+
+    const dateRangePicker = document.querySelector(".DateRangePicker_picker");
+    dateRangePicker.style.display = "none";
+    const numberOfPersonsObj = document.querySelector("#" + this.props.numberOfPersonsId);
+    numberOfPersonsObj.parentNode.parentNode.click();
 
     this.props.onChange({ startDate: startDateAsDate, endDate: endDateAsDate });
   }
@@ -222,10 +226,15 @@ class DateTFInputComponent extends Component {
       value,
       children,
       render,
+      timeSlotId,
+      numberOfPersonsId,
       timeSlots,
       ...datePickerProps
     } = this.props;
     /* eslint-enable no-unused-vars */
+
+    this.timeSlotId = timeSlotId;
+    this.numberOfPersonsId = numberOfPersonsId;
 
     const isDaily = unitType === LINE_ITEM_DAY;
     const initialStartMoment = initialDates ? moment(initialDates.startDate) : null;

@@ -5,11 +5,12 @@ import { Form as FinalForm } from 'react-final-form';
 import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
 import moment from 'moment';
+import uniqueId from 'lodash/uniqueId';
 import { required, bookingDatesRequired, composeValidators } from '../../util/validators';
 import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
 import config from '../../config';
-import { Form, PrimaryButton, FieldTFDateInput, FieldTimeSlot, FieldTextInput } from '../../components';
+import { Form, PrimaryButton, FieldTFDateInput, FieldTimeSlot, FieldNumOfPersonsInput } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 
 import css from './BookingDatesForm.css';
@@ -19,6 +20,10 @@ const identity = v => v;
 export class BookingDatesFormComponent extends Component {
   constructor(props) {
     super(props);
+
+    this.timeSlotId = uniqueId('time-slot-');
+    this.numberOfPersonsId = uniqueId('number-of-persons-');
+
     this.state = { focusedInput: null };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onFocusedInputChange = this.onFocusedInputChange.bind(this);
@@ -77,7 +82,7 @@ export class BookingDatesFormComponent extends Component {
         </div>
       );
     }
-
+    /* eslint-disable no-unused-vars */
     return (
       <FinalForm
         {...rest}
@@ -118,9 +123,9 @@ export class BookingDatesFormComponent extends Component {
           ) : null;
 
           let numOfPersons = 1;
-          const numOfPersonsObj = document.getElementById("number_of_persons");
+          const numOfPersonsObj = document.getElementById(this.numberOfPersonsId);
           if(numOfPersonsObj) {
-            const numOfPersonsVal = document.getElementById("number_of_persons").value;
+            const numOfPersonsVal = numOfPersonsObj.value;
             if(/^[0-9]+$/.test(numOfPersonsVal)) {
               numOfPersons = parseInt(numOfPersonsVal, 10);
             }
@@ -156,7 +161,7 @@ export class BookingDatesFormComponent extends Component {
             month: 'short',
             day: 'numeric',
           };
-
+          /* eslint-disable no-unused-vars */
           const now = moment();
           const today = now.startOf('day').toDate();
           const tomorrow = now
@@ -184,6 +189,8 @@ export class BookingDatesFormComponent extends Component {
                 endDateId={`${formId}.bookingEndDate`}
                 endDateLabel={bookingEndLabel}
                 endDatePlaceholderText=""
+                timeSlotId={this.timeSlotId}
+                numberOfPersonsId={this.numberOfPersonsId}
                 focusedInput={this.state.focusedInput}
                 onFocusedInputChange={this.onFocusedInputChange}
                 format={identity}
@@ -195,17 +202,22 @@ export class BookingDatesFormComponent extends Component {
                 )}
               />
               <FieldTimeSlot
-                id="time_slot"
-                name="time_slot"
-                label="Choose the time"/>
+                id={this.timeSlotId}
+                ref={this.timeSlotDropdown}
+                name={this.timeSlotId}
+                label="Choose the time"
+                useMobileMargins
+              />
               <br/>
-              <FieldTextInput
-                id="number_of_persons"
+              <FieldNumOfPersonsInput
+                id={this.numberOfPersonsId}
+                ref={this.numberOfPersonsInput}
                 type="text"
-                name="number_of_persons"
+                name={this.numberOfPersonsId}
                 label="Input the number of persons:"
                 value="1"
                 placeholder="Enter the number"
+                useMobileMargins
               />
               {bookingInfo}
               <p className={css.smallPrint}>

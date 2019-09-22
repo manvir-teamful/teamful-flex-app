@@ -23,7 +23,6 @@ const LineItemPersonsMaybe = props => {
 
 LineItemPersonsMaybe.propTypes = {
   transaction: propTypes.transaction.isRequired,
-  unitType: propTypes.bookingUnitType.isRequired,
   intl: intlShape.isRequired,
 };
 

@@ -4,11 +4,11 @@ import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import { ValidationError, ExpandingTextarea } from '../../components';
 
-import css from './FieldTextInput.css';
+import css from './FieldNumOfPersonsInput.css';
 
 const CONTENT_MAX_LENGTH = 5000;
 
-class FieldTextInputComponent extends Component {
+class FieldNumOfPersonsInputComponent extends Component {
   render() {
     /* eslint-disable no-unused-vars */
     const {
@@ -23,6 +23,7 @@ class FieldTextInputComponent extends Component {
       onUnmount,
       isUncontrolled,
       inputRef,
+      useMobileMargins,
       ...rest
     } = this.props;
     /* eslint-enable no-unused-vars */
@@ -80,17 +81,20 @@ class FieldTextInputComponent extends Component {
       : { className: inputClasses, id, type, ...refMaybe, ...input, ...rest };
 
     const classes = classNames(rootClassName || css.root, className );
+    const wrapClasses = classNames({ [css.mobileMargins]: useMobileMargins });
     return (
-      <div className={classes}>
-        {label ? <label htmlFor={id}>{label}</label> : null}
-        {isTextarea ? <ExpandingTextarea {...inputProps} /> : <input {...inputProps} />}
-        <ValidationError fieldMeta={fieldMeta} />
+      <div className={wrapClasses}>
+        <div className={classes}>
+          {label ? <label htmlFor={id}>{label}</label> : null}
+          {isTextarea ? <ExpandingTextarea {...inputProps} /> : <input {...inputProps} />}
+          <ValidationError fieldMeta={fieldMeta} />
+        </div>
       </div>
     );
   }
 }
 
-FieldTextInputComponent.defaultProps = {
+FieldNumOfPersonsInputComponent.defaultProps = {
   rootClassName: null,
   className: null,
   inputRootClass: null,
@@ -102,7 +106,7 @@ FieldTextInputComponent.defaultProps = {
   inputRef: null,
 };
 
-FieldTextInputComponent.propTypes = {
+FieldNumOfPersonsInputComponent.propTypes = {
   rootClassName: string,
   className: string,
   inputRootClass: string,
@@ -133,7 +137,7 @@ FieldTextInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
-class FieldTextInput extends Component {
+class FieldNumOfPersonsInput extends Component {
   componentWillUnmount() {
     // Unmounting happens too late if it is done inside Field component
     // (Then Form has already registered its (new) fields and
@@ -144,8 +148,8 @@ class FieldTextInput extends Component {
   }
 
   render() {
-    return <Field component={FieldTextInputComponent} {...this.props} />;
+    return <Field component={FieldNumOfPersonsInputComponent} {...this.props} />;
   }
 }
 
-export default FieldTextInput;
+export default FieldNumOfPersonsInput;

@@ -99,6 +99,7 @@ export { default as FieldCheckboxGroup } from './FieldCheckboxGroup/FieldCheckbo
 export { default as FieldPhoneNumberInput } from './FieldPhoneNumberInput/FieldPhoneNumberInput';
 // Teamful specific components
 export { default as FieldTimeSlot } from './FieldTimeSlot/FieldTimeSlot';
+export { default as FieldNumOfPersonsInput } from './FieldNumOfPersonsInput/FieldNumOfPersonsInput';
 export { default as FieldTFDateInput } from './FieldTFDateInput/FieldTFDateInput';
 // Fields and inputs using old naming pattern
 export { default as LocationAutocompleteInput, LocationAutocompleteInputField } from './LocationAutocompleteInput/LocationAutocompleteInput';

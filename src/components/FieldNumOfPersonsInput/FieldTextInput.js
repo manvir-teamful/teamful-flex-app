@@ -23,6 +23,7 @@ class FieldTextInputComponent extends Component {
       onUnmount,
       isUncontrolled,
       inputRef,
+      useMobileMargins,
       ...rest
     } = this.props;
     /* eslint-enable no-unused-vars */
@@ -80,11 +81,14 @@ class FieldTextInputComponent extends Component {
       : { className: inputClasses, id, type, ...refMaybe, ...input, ...rest };
 
     const classes = classNames(rootClassName || css.root, className );
+    const wrapClasses = classNames({ [css.mobileMargins]: useMobileMargins });
     return (
-      <div className={classes}>
-        {label ? <label htmlFor={id}>{label}</label> : null}
-        {isTextarea ? <ExpandingTextarea {...inputProps} /> : <input {...inputProps} />}
-        <ValidationError fieldMeta={fieldMeta} />
+      <div className={wrapClasses}>
+        <div className={classes}>
+          {label ? <label htmlFor={id}>{label}</label> : null}
+          {isTextarea ? <ExpandingTextarea {...inputProps} /> : <input {...inputProps} />}
+          <ValidationError fieldMeta={fieldMeta} />
+        </div>
       </div>
     );
   }

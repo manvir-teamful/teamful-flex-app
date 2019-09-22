@@ -38,6 +38,7 @@ const BookingPeriod = props => {
 };
 
 const LineItemBookingPeriod = props => {
+  /* eslint-disable no-unused-vars */
   const { transaction, booking, bookingData, unitType } = props;
 
   // Attributes: displayStart and displayEnd can be used to differentiate shown time range
@@ -49,12 +50,13 @@ const LineItemBookingPeriod = props => {
   const localEndDateRaw = dateFromAPIToLocalNoon(displayEnd || end);
 
   const isNightly = unitType === LINE_ITEM_NIGHT;
+  /* eslint-disable no-unused-vars */
   const isDaily = unitType === LINE_ITEM_DAY;
 
   const dayCount = daysBetween(localStartDate, localEndDateRaw);
   const isSingleDay = !isNightly && dayCount === 1;
   const endDay = isNightly ? localEndDateRaw : moment(localEndDateRaw).subtract(1, 'days');
-
+  /* eslint-disable no-unused-vars */
   const unitPurchase = transaction.attributes.lineItems.find(
     item => item.code === unitType && !item.reversal
   );

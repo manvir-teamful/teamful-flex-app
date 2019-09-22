@@ -1,10 +1,12 @@
 import React from 'react';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { FieldSelect } from '../../components';
+import classNames from 'classnames';
+import css from './FieldTimeSlot.css';
 const moment = require('moment');
 
 const FieldTimeSlot = props => {
-  const { placeholder, intl, ...rest } = props;
+  const { placeholder, intl, useMobileMargins, ...rest } = props;
   const momentZero = moment.utc(0);
   const timeLabels = [];
 
@@ -17,12 +19,16 @@ const FieldTimeSlot = props => {
     ...rest,
   };
 
+  const selectClasses = classNames({ [css.mobileMargins]: useMobileMargins });
+
   return (
-    <FieldSelect {...selectProps}>
-      {timeLabels.map( timeVal => {
-        return <option value={timeVal}>{timeVal}</option>
-      })}
-    </FieldSelect>
+    <div className={selectClasses}>
+      <FieldSelect {...selectProps}>
+        {timeLabels.map( (timeVal, optIndex) => {
+          return <option key={optIndex} value={timeVal}>{timeVal}</option>
+        })}
+      </FieldSelect>
+    </div>
   );
 };
 
