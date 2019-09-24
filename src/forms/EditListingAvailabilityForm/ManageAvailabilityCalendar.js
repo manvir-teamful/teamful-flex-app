@@ -457,12 +457,12 @@ class ManageAvailabilityCalendar extends Component {
         <div className={css.timeAvailability} style={{ width: `${calendarGridWidth}px` }}>
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeFrom" name="timeFrom" style={{ width: "200px"}}
-                         label={<FormattedMessage id="EditListingAvailabilityForm.timeAvailabilityFrom" />}
+                         label="Availability Time From:"
                          validate=""/>
           </div>
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeTo" name="timeTo" style={{ width: "200px"}}
-                         label={<FormattedMessage id="EditListingAvailabilityForm.timeAvailabilityTo" />}
+                         label="To:"
                          validate=""/>
           </div>
         </div>

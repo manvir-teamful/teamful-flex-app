@@ -30,6 +30,7 @@ import {
   transactionInitiateOrderStripeErrors,
 } from '../../util/errors';
 import { formatMoney } from '../../util/currency';
+import { types as sdkTypes } from '../../util/sdkLoader';
 import { TRANSITION_ENQUIRE, txIsPaymentPending, txIsPaymentExpired } from '../../util/transaction';
 import {
   AvatarMedium,
@@ -84,6 +85,8 @@ const initializeOrderPage = (initialValues, routes, dispatch) => {
   // sending failed, we tell it to the OrderDetailsPage.
   dispatch(OrderPage.setInitialValues(initialValues));
 };
+
+const { Money } = sdkTypes;
 
 const checkIsPaymentExpired = existingTransaction => {
   return txIsPaymentExpired(existingTransaction)
@@ -187,6 +190,12 @@ export class CheckoutPageComponent extends Component {
       // a noon of correct year-month-date combo in UTC
       const bookingStartForAPI = dateFromLocalToAPI(bookingStart);
       const bookingEndForAPI = dateFromLocalToAPI(bookingEnd);
+      //
+      let numOfPersons = 1;
+      if(bookingData && bookingData.numberOfPersons) {
+        numOfPersons = parseInt(bookingData.numberOfPersons);
+      }
+      const totalPrice = numOfPersons * listing.attributes.price.amount;
 
       // Fetch speculated transaction for showing price in booking breakdown
       // NOTE: if unit type is line-item/units, quantity needs to be added.
@@ -195,7 +204,18 @@ export class CheckoutPageComponent extends Component {
         listingId,
         bookingStart: bookingStartForAPI,
         bookingEnd: bookingEndForAPI,
+        numberOfPersons: bookingData.numberOfPersons,
+        timeSlot: bookingData.timeSlot,
+        lineItems: [
+          {
+            code: LINE_ITEM_DAY,
+            unitPrice: new Money(listing.attributes.price.amount, "USD"),
+            lineTotal: new Money(totalPrice, "USD"),
+            quantity: numOfPersons,
+          },
+        ],
       });
+
     }
 
     this.setState({ pageData: pageData || {}, dataLoaded: true });

@@ -26,8 +26,9 @@ const EditListingAvailabilityPanel = props => {
   const classes = classNames(rootClassName || css.root, className);
   const currentListing = ensureOwnListing(listing);
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
-  const defaultAvailabilityPlan = {
+  /*const defaultAvailabilityPlan = {
     type: 'availability-plan/time',
+    timezone: 'Canada/Eastern',
     entries: [
       { dayOfWeek: 'mon', seats: 1, startTime: '09:00', endTime: '18:00' },
       { dayOfWeek: 'tue', seats: 1, startTime: '09:00', endTime: '18:00' },
@@ -36,6 +37,19 @@ const EditListingAvailabilityPanel = props => {
       { dayOfWeek: 'fri', seats: 1, startTime: '09:00', endTime: '18:00' },
       { dayOfWeek: 'sat', seats: 1, startTime: '09:00', endTime: '18:00' },
       { dayOfWeek: 'sun', seats: 1, startTime: '09:00', endTime: '18:00' },
+    ],
+  };*/
+  const defaultAvailabilityPlan = {
+    type: 'availability-plan/day',
+    //timezone: 'Canada/Eastern',
+    entries: [
+      { dayOfWeek: 'mon', seats: 1 },
+      { dayOfWeek: 'tue', seats: 1 },
+      { dayOfWeek: 'wed', seats: 1 },
+      { dayOfWeek: 'thu', seats: 1 },
+      { dayOfWeek: 'fri', seats: 1 },
+      { dayOfWeek: 'sat', seats: 1 },
+      { dayOfWeek: 'sun', seats: 1 },
     ],
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;

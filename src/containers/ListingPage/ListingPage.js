@@ -101,7 +101,19 @@ export class ListingPageComponent extends Component {
     const listingId = new UUID(params.id);
     const listing = getListing(listingId);
 
-    const { bookingDates, ...bookingData } = values;
+    const { bookingDates, ...initBookingData } = values;
+
+    let bookingData = {numberOfPersons: 1, timeSlot: "12:00"};
+    // eslint-disable-next-line
+    for(let bookingExtraField in initBookingData){
+      if( /number-of-persons-[0-9]+/.test(bookingExtraField)){
+        bookingData["numberOfPersons"] = initBookingData[bookingExtraField];
+      }
+
+      if( /time-slot-[0-9]+/.test(bookingExtraField)){
+        bookingData["timeSlot"] = initBookingData[bookingExtraField];
+      }
+    }
 
     const initialValues = {
       listing,

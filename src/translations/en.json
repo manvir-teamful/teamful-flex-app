@@ -198,7 +198,7 @@
   "EditListingPoliciesPanel.createListingTitle": "Time to set some ground rules for the bathers.",
   "EditListingPoliciesPanel.title": "Edit the rules of {listingTitle}",
   "EditListingPricingForm.priceInputPlaceholder": "Choose your price…",
-  "EditListingPricingForm.pricePerDay": "Price per person in euros",
+  "EditListingPricingForm.pricePerDay": "Price per person in dollars",
   "EditListingPricingForm.pricePerNight": "Price per night in euros",
   "EditListingPricingForm.pricePerUnit": "Price per unit in euros",
   "EditListingPricingForm.priceRequired": "You need to add a valid price.",
