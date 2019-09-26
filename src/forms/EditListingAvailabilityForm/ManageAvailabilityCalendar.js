@@ -370,6 +370,7 @@ class ManageAvailabilityCalendar extends Component {
       listingId,
       availability,
       availabilityPlan,
+      privateData,
       onMonthChanged,
       monthFormat,
       ...rest
@@ -396,6 +397,15 @@ class ManageAvailabilityCalendar extends Component {
 
     const monthName = currentMonth.format('MMMM');
     const classes = classNames(rootClassName || css.root, className);
+
+    let availableFromTimestamp = 0;
+    if(privateData && privateData.availableFromTimestamp){
+      availableFromTimestamp = parseInt(privateData.availableFromTimestamp);
+    }
+    let availableTillTimestamp = 60 * 60 * 24;
+    if(privateData && privateData.availableTillTimestamp){
+      availableTillTimestamp = parseInt(privateData.availableTillTimestamp);
+    }
 
     return (
       <div
@@ -458,12 +468,12 @@ class ManageAvailabilityCalendar extends Component {
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeFrom" name="timeFrom" style={{ width: "200px"}}
                          label="Availability Time From:"
-                         validate=""/>
+                         startTimestamp={availableFromTimestamp} endTimestamp={availableTillTimestamp} validate=""/>
           </div>
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeTo" name="timeTo" style={{ width: "200px"}}
                          label="To:"
-                         validate=""/>
+                         startTimestamp="" endTimestamp="" validate=""/>
           </div>
         </div>
           {fetchExceptionsError && fetchBookingsError ? (

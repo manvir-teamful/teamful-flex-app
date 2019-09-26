@@ -206,6 +206,8 @@ export class BookingDatesFormComponent extends Component {
                 ref={this.timeSlotDropdown}
                 name={this.timeSlotId}
                 label="Choose the time"
+                startTimestamp=""
+                endTimestamp=""
                 useMobileMargins
               />
               <br/>

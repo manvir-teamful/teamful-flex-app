@@ -72,6 +72,7 @@ const EditListingAvailabilityPanel = props => {
         initialValues={{ availabilityPlan }}
         availability={availability}
         availabilityPlan={availabilityPlan}
+        privateData={currentListing.attributes.privateData}
         onSubmit={() => {
           // We save the default availability plan
           // I.e. this listing is available every night.

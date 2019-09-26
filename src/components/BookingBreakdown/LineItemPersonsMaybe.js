@@ -4,7 +4,7 @@ import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
 
 import css from './BookingBreakdown.css';
-import { formatMoney } from '../../util/currency';
+//import { formatMoney } from '../../util/currency';
 
 const LineItemPersonsMaybe = props => {
   // eslint-disable-next-line
@@ -22,8 +22,7 @@ const LineItemPersonsMaybe = props => {
     );
 
     const unitPrice = unitPurchase.unitPrice.amount;
-    const payinAmount =
-    quantityEnsured = transaction.attributes.payinTotal.amount;
+    const payinAmount = transaction.attributes.payinTotal.amount;
     quantityEnsured = payinAmount / unitPrice;
   }
 

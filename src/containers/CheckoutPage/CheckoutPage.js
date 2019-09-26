@@ -209,7 +209,7 @@ export class CheckoutPageComponent extends Component {
         lineItems: [
           {
             code: LINE_ITEM_DAY,
-            unitPrice: new Money(listing.attributes.price.amount, "USD"),
+            unitPrice: new Money(listing.attributes.price.amount, "CAD"),
             lineTotal: new Money(totalPrice, "USD"),
             quantity: numOfPersons,
           },
