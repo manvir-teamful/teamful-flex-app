@@ -468,12 +468,12 @@ class ManageAvailabilityCalendar extends Component {
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeFrom" name="timeFrom" style={{ width: "200px"}}
                          label="Availability Time From:"
-                         startTimestamp={availableFromTimestamp} endTimestamp={availableTillTimestamp} validate=""/>
+                         startTimestamp="" endTimestamp="" selectedTimestamp={availableFromTimestamp} validate=""/>
           </div>
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeTo" name="timeTo" style={{ width: "200px"}}
                          label="To:"
-                         startTimestamp="" endTimestamp="" validate=""/>
+                         startTimestamp="" endTimestamp="" selectedTimestamp={availableTillTimestamp} validate=""/>
           </div>
         </div>
           {fetchExceptionsError && fetchBookingsError ? (

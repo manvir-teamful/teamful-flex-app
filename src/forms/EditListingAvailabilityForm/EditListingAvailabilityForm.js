@@ -30,6 +30,7 @@ export class EditListingAvailabilityFormComponent extends Component {
             updateInProgress,
             availability,
             availabilityPlan,
+            privateData,
             listingId,
           } = fieldRenderProps;
 
@@ -51,6 +52,7 @@ export class EditListingAvailabilityFormComponent extends Component {
                 <ManageAvailabilityCalendar
                   availability={availability}
                   availabilityPlan={availabilityPlan}
+                  privateData={privateData}
                   listingId={listingId}
                 />
               </div>

@@ -54,6 +54,18 @@ const EditListingAvailabilityPanel = props => {
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
 
+  const defaultPrivateData =
+    { availableFromTimestamp: 60 * 60 * 9, availableTillTimestamp: 60 * 60 * 18 };
+  let privateData;
+  if(currentListing && currentListing.attributes && currentListing.attributes.privateData &&
+     typeof currentListing.attributes.privateData.availableFromTimestamp !== 'undefined' &&
+     typeof currentListing.attributes.privateData.availableTillTimestamp !== 'undefined')
+  {
+    privateData = currentListing.attributes.privateData;
+  } else {
+    privateData = defaultPrivateData;
+  }
+
   return (
     <div className={classes}>
       <h1 className={css.title}>
@@ -72,13 +84,13 @@ const EditListingAvailabilityPanel = props => {
         initialValues={{ availabilityPlan }}
         availability={availability}
         availabilityPlan={availabilityPlan}
-        privateData={currentListing.attributes.privateData}
+        privateData={privateData}
         onSubmit={() => {
           // We save the default availability plan
           // I.e. this listing is available every night.
           // Exceptions are handled with live edit through a calendar,
           // which is visible on this panel.
-          onSubmit({ availabilityPlan });
+          onSubmit({ availabilityPlan: availabilityPlan, privateData: privateData });
         }}
         onChange={onChange}
         saveActionMsg={submitButtonText}

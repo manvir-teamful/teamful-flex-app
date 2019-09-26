@@ -6,9 +6,8 @@ import css from './FieldTimeSlot.css';
 const moment = require('moment');
 
 const FieldTimeSlot = props => {
-  const { placeholder, intl, useMobileMargins, startTimestamp, endTimestamp, ...rest } = props;
-  const momentZero = moment.utc(0);
-  const timeLabels = [];
+  const { placeholder, intl, useMobileMargins, startTimestamp, endTimestamp,
+          selectedTimestamp, ...rest } = props;
   let startTimeInd = startTimestamp ? Math.floor(startTimestamp / 1800) : 0;
   let endTimeInd = endTimestamp ? Math.floor(endTimestamp / 1800) : 48;
 
@@ -28,12 +27,18 @@ const FieldTimeSlot = props => {
     endTimeInd = startTimeInd + 1;
   }
 
+  const ensuredStartTimestamp = startTimestamp ? startTimestamp : 0;
+  const selectedTimeInd = Math.floor((selectedTimestamp - ensuredStartTimestamp) / 1800);
+
+  const timeLabels = [];
+  const momentZero = moment.utc(startTimestamp * 1000);
   for(let i = startTimeInd; i <= endTimeInd; i++){
     timeLabels.push(momentZero.format("hh:mm A"));
     momentZero.add(30, "minutes");
   }
 
   const selectProps = {
+    defaultValue: selectedTimeInd,
     ...rest,
   };
 
@@ -43,7 +48,7 @@ const FieldTimeSlot = props => {
     <div className={selectClasses}>
       <FieldSelect {...selectProps}>
         {timeLabels.map( (timeVal, optIndex) => {
-          return <option key={optIndex} value={timeVal}>{timeVal}</option>
+          return <option key={optIndex} value={optIndex}>{timeVal}</option>
         })}
       </FieldSelect>
     </div>
