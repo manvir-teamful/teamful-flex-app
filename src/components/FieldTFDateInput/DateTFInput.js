@@ -229,6 +229,7 @@ class DateTFInputComponent extends Component {
       timeSlotId,
       numberOfPersonsId,
       timeSlots,
+      availabilityTimes,
       ...datePickerProps
     } = this.props;
     /* eslint-enable no-unused-vars */

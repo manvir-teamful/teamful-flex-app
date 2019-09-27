@@ -6,8 +6,8 @@ import { ensureOwnListing } from '../../util/data';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '../../components';
 import { EditListingAvailabilityForm } from '../../forms';
-
 import css from './EditListingAvailabilityPanel.css';
+const moment = require('moment');
 
 const EditListingAvailabilityPanel = props => {
   const {
@@ -54,16 +54,17 @@ const EditListingAvailabilityPanel = props => {
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
 
-  const defaultPrivateData =
+  const defaultAvailabilityTimes =
     { availableFromTimestamp: 60 * 60 * 9, availableTillTimestamp: 60 * 60 * 18 };
-  let privateData;
-  if(currentListing && currentListing.attributes && currentListing.attributes.privateData &&
-     typeof currentListing.attributes.privateData.availableFromTimestamp !== 'undefined' &&
-     typeof currentListing.attributes.privateData.availableTillTimestamp !== 'undefined')
+  let availabilityTimes;
+  if(currentListing && currentListing.attributes && currentListing.attributes.publicData &&
+     currentListing.attributes.publicData.availabilityTimes &&
+     typeof currentListing.attributes.publicData.availabilityTimes.availableFromTimestamp !== 'undefined' &&
+     typeof currentListing.attributes.publicData.availabilityTimes.availableTillTimestamp !== 'undefined')
   {
-    privateData = currentListing.attributes.privateData;
+    availabilityTimes = currentListing.attributes.publicData.availabilityTimes;
   } else {
-    privateData = defaultPrivateData;
+    availabilityTimes = defaultAvailabilityTimes;
   }
 
   return (
@@ -84,13 +85,23 @@ const EditListingAvailabilityPanel = props => {
         initialValues={{ availabilityPlan }}
         availability={availability}
         availabilityPlan={availabilityPlan}
-        privateData={privateData}
-        onSubmit={() => {
+        availabilityTimes={availabilityTimes}
+        onSubmit={(values) => {
+          const { timeFrom, timeTo } = values;
+          const timeFromObj = moment.utc(timeFrom, "hh:mm A");
+          const timeToObj = moment.utc(timeTo, "hh:mm A");
+          const secondsFrom = timeFromObj.hours() * 3600 + timeFromObj.minutes() * 60 + timeFromObj.seconds();
+          let secondsTo = timeToObj.hours() * 3600 + timeToObj.minutes() * 60 + timeToObj.seconds();
+          if(secondsTo <= secondsFrom){
+            secondsTo = secondsFrom + 1800;
+          }
+          const newAvailabilityTimes = { availableFromTimestamp: secondsFrom,
+                                         availableTillTimestamp: secondsTo };
           // We save the default availability plan
           // I.e. this listing is available every night.
           // Exceptions are handled with live edit through a calendar,
           // which is visible on this panel.
-          onSubmit({ availabilityPlan: availabilityPlan, privateData: privateData });
+          onSubmit({ availabilityPlan: availabilityPlan, publicData: { availabilityTimes: newAvailabilityTimes }});
         }}
         onChange={onChange}
         saveActionMsg={submitButtonText}

@@ -27,8 +27,7 @@ const FieldTimeSlot = props => {
     endTimeInd = startTimeInd + 1;
   }
 
-  const ensuredStartTimestamp = startTimestamp ? startTimestamp : 0;
-  const selectedTimeInd = Math.floor((selectedTimestamp - ensuredStartTimestamp) / 1800);
+  const selectedTimeVal = moment.utc(selectedTimestamp * 1000).format("hh:mm A");
 
   const timeLabels = [];
   const momentZero = moment.utc(startTimestamp * 1000);
@@ -38,7 +37,7 @@ const FieldTimeSlot = props => {
   }
 
   const selectProps = {
-    defaultValue: selectedTimeInd,
+    defaultValue: selectedTimeVal,
     ...rest,
   };
 
@@ -48,7 +47,7 @@ const FieldTimeSlot = props => {
     <div className={selectClasses}>
       <FieldSelect {...selectProps}>
         {timeLabels.map( (timeVal, optIndex) => {
-          return <option key={optIndex} value={optIndex}>{timeVal}</option>
+          return <option key={optIndex} value={timeVal}>{timeVal}</option>
         })}
       </FieldSelect>
     </div>

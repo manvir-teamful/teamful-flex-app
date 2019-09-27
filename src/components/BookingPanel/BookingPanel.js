@@ -74,6 +74,7 @@ const BookingPanel = props => {
   const showClosedListingHelpText = listing.id && isClosed;
   const { formattedPrice, priceTitle } = priceData(price, intl);
   const isBook = !!parse(location.search).book;
+  const availabilityTimes = listing.attributes.publicData.availabilityTimes;
 
   const subTitleText = !!subTitle
     ? subTitle
@@ -124,6 +125,7 @@ const BookingPanel = props => {
             price={price}
             isOwnListing={isOwnListing}
             timeSlots={timeSlots}
+            availabilityTimes={availabilityTimes}
             fetchTimeSlotsError={fetchTimeSlotsError}
           />
         ) : null}

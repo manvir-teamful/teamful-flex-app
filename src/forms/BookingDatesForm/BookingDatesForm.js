@@ -61,7 +61,7 @@ export class BookingDatesFormComponent extends Component {
   }
 
   render() {
-    const { rootClassName, className, price: unitPrice, ...rest } = this.props;
+    const { rootClassName, className, price: unitPrice, availabilityTimes, ...rest } = this.props;
     const classes = classNames(rootClassName || css.root, className);
 
     if (!unitPrice) {
@@ -87,6 +87,7 @@ export class BookingDatesFormComponent extends Component {
       <FinalForm
         {...rest}
         unitPrice={unitPrice}
+        availabilityTimes={availabilityTimes}
         onSubmit={this.handleFormSubmit}
         render={fieldRenderProps => {
           const {
@@ -101,6 +102,7 @@ export class BookingDatesFormComponent extends Component {
             unitType,
             values,
             timeSlots,
+            availabilityTimes,
             fetchTimeSlotsError,
           } = fieldRenderProps;
           const { startDate, endDate } = values && values.bookingDates ? values.bookingDates : {};
@@ -192,6 +194,7 @@ export class BookingDatesFormComponent extends Component {
                 timeSlotId={this.timeSlotId}
                 numberOfPersonsId={this.numberOfPersonsId}
                 focusedInput={this.state.focusedInput}
+                availabilityTimes={availabilityTimes}
                 onFocusedInputChange={this.onFocusedInputChange}
                 format={identity}
                 timeSlots={timeSlots}
@@ -206,8 +209,8 @@ export class BookingDatesFormComponent extends Component {
                 ref={this.timeSlotDropdown}
                 name={this.timeSlotId}
                 label="Choose the time"
-                startTimestamp=""
-                endTimestamp=""
+                startTimestamp={availabilityTimes.availableFromTimestamp}
+                endTimestamp={availabilityTimes.availableTillTimestamp}
                 useMobileMargins
               />
               <br/>

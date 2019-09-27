@@ -63,6 +63,7 @@ class FieldTFDateInputComponent extends Component {
       input,
       meta,
       useMobileMargins,
+      availabilityTimes,
       // Extract focusedInput and onFocusedInputChange so that
       // the same values will not be passed on to subcomponents.
       focusedInput,
@@ -129,6 +130,7 @@ class FieldTFDateInputComponent extends Component {
       focusedInput: this.state.focusedInput,
       startDateId,
       endDateId,
+      availabilityTimes,
     };
     const classes = classNames(rootClassName || css.fieldRoot, className);
     const errorClasses = classNames({ [css.mobileMargins]: useMobileMargins });

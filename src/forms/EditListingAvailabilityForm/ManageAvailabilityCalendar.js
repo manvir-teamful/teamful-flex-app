@@ -370,7 +370,7 @@ class ManageAvailabilityCalendar extends Component {
       listingId,
       availability,
       availabilityPlan,
-      privateData,
+      availabilityTimes,
       onMonthChanged,
       monthFormat,
       ...rest
@@ -399,12 +399,12 @@ class ManageAvailabilityCalendar extends Component {
     const classes = classNames(rootClassName || css.root, className);
 
     let availableFromTimestamp = 0;
-    if(privateData && privateData.availableFromTimestamp){
-      availableFromTimestamp = parseInt(privateData.availableFromTimestamp);
+    if(availabilityTimes && availabilityTimes.availableFromTimestamp){
+      availableFromTimestamp = parseInt(availabilityTimes.availableFromTimestamp);
     }
     let availableTillTimestamp = 60 * 60 * 24;
-    if(privateData && privateData.availableTillTimestamp){
-      availableTillTimestamp = parseInt(privateData.availableTillTimestamp);
+    if(availabilityTimes && availabilityTimes.availableTillTimestamp){
+      availableTillTimestamp = parseInt(availabilityTimes.availableTillTimestamp);
     }
 
     return (
