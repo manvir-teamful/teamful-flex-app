@@ -217,6 +217,7 @@ class ManageAvailabilityCalendar extends Component {
 
     this.fetchMonthData = this.fetchMonthData.bind(this);
     this.onDayAvailabilityChange = this.onDayAvailabilityChange.bind(this);
+    this.onTimeAvailabilityChange = this.onTimeAvailabilityChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onFocusChange = this.onFocusChange.bind(this);
     this.onMonthClick = this.onMonthClick.bind(this);
@@ -303,6 +304,12 @@ class ManageAvailabilityCalendar extends Component {
       const params = { listingId, start, end, seats, currentException: exception };
       this.props.availability.onCreateAvailabilityException(params);
     }
+  }
+
+  onTimeAvailabilityChange(){
+    // availFromTimestamp, availTillTimestamp
+    //console.log("onTimeAvailabilityChange");
+    //this.setState({ availableFromTimestamp: "333", availableTillTimestamp: "444" });
   }
 
   onDateChange(date) {
@@ -468,12 +475,18 @@ class ManageAvailabilityCalendar extends Component {
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeFrom" name="timeFrom" style={{ width: "200px"}}
                          label="Availability Time From:"
-                         startTimestamp="" endTimestamp="" selectedTimestamp={availableFromTimestamp} validate=""/>
+                         startTimestamp="" endTimestamp="" selectedTimestamp={availableFromTimestamp}
+                         validate=""
+//                         onChange={this.onTimeAvailabilityChange}
+            />
           </div>
           <div className={css.timeAvailabilityRow}>
             <FieldTimeSlot id="timeTo" name="timeTo" style={{ width: "200px"}}
                          label="To:"
-                         startTimestamp="" endTimestamp="" selectedTimestamp={availableTillTimestamp} validate=""/>
+                         startTimestamp="" endTimestamp="" selectedTimestamp={availableTillTimestamp}
+                         validate=""
+//                         onChange={this.onTimeAvailabilityChange}
+            />
           </div>
         </div>
           {fetchExceptionsError && fetchBookingsError ? (

@@ -273,6 +273,7 @@ const mapDispatchToProps = dispatch => ({
   onFetchAvailabilityExceptions: params => dispatch(requestFetchAvailabilityExceptions(params)),
   onCreateAvailabilityException: params => dispatch(requestCreateAvailabilityException(params)),
   onDeleteAvailabilityException: params => dispatch(requestDeleteAvailabilityException(params)),
+
   onCreateListingDraft: values => dispatch(requestCreateListingDraft(values)),
   onPublishListingDraft: listingId => dispatch(requestPublishListingDraft(listingId)),
   onImageUpload: data => dispatch(requestImageUpload(data)),

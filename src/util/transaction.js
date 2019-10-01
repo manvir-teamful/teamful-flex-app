@@ -16,7 +16,7 @@ import { ensureTransaction } from './data';
 // export const TRANSITION_REQUEST_PAYMENT = 'transition/request-payment';
 
 // In Teamful custom workflow the initial transition must be "transition/request" after booking is requested.
-export const TRANSITION_REQUEST_PAYMENT = 'transition/request';
+export const TRANSITION_REQUEST_PAYMENT = 'transition/request-payment';
 
 // A customer can also initiate a transaction with an enquiry, and
 // then transition that with a request.

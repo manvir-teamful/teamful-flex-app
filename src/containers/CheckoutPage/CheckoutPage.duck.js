@@ -161,6 +161,7 @@ export const stripeCustomerError = e => ({
 
 export const initiateOrder = (orderParams, transactionId) => (dispatch, getState, sdk) => {
   dispatch(initiateOrderRequest());
+
   const bodyParams = transactionId
     ? {
         id: transactionId,

@@ -210,7 +210,7 @@ export class CheckoutPageComponent extends Component {
           {
             code: LINE_ITEM_DAY,
             unitPrice: new Money(listing.attributes.price.amount, "CAD"),
-            lineTotal: new Money(totalPrice, "USD"),
+            lineTotal: new Money(totalPrice, "CAD"),
             quantity: numOfPersons,
           },
         ],
@@ -266,14 +266,23 @@ export class CheckoutPageComponent extends Component {
       const hasPaymentIntents =
         storedTx.attributes.protectedData && storedTx.attributes.protectedData.stripePaymentIntents;
 
+      const { stripe, card } = handlePaymentParams;
+
       // If paymentIntent exists, order has been initiated previously.
-      return hasPaymentIntents ? Promise.resolve(storedTx) : onInitiateOrder(fnParams, storedTx.id);
+      return hasPaymentIntents
+        ? Promise.resolve(storedTx)
+        : stripe.createToken(card).then(
+            result => {
+              let extParams = fnParams;
+              extParams.cardToken = result.token.id;
+
+              return onInitiateOrder(extParams, storedTx.id)
+            });
     };
 
     // Step 2: pay using Stripe SDK
     const fnHandleCardPayment = fnParams => {
       // fnParams should be returned transaction entity
-
       const order = ensureTransaction(fnParams);
       if (order.id) {
         // Store order.
@@ -390,10 +399,26 @@ export class CheckoutPageComponent extends Component {
         ? { setupPaymentMethodForSaving: true }
         : {};
 
+    let numOfPersons = 1;
+    if(pageData.bookingData && pageData.bookingData.numberOfPersons) {
+      numOfPersons = parseInt(pageData.bookingData.numberOfPersons);
+    }
+    const totalPrice = numOfPersons * pageData.listing.attributes.price.amount;
+
     const orderParams = {
       listingId: pageData.listing.id,
       bookingStart: tx.booking.attributes.start,
       bookingEnd: tx.booking.attributes.end,
+      numberOfPersons: pageData.bookingData.numberOfPersons,
+      timeSlot: pageData.bookingData.timeSlot,
+      lineItems: [
+        {
+          code: LINE_ITEM_DAY,
+          unitPrice: new Money(pageData.listing.attributes.price.amount, "CAD"),
+          lineTotal: new Money(totalPrice, "CAD"),
+          quantity: numOfPersons,
+        },
+      ],
       ...optionalPaymentParams,
     };
 
