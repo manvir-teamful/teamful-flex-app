@@ -37,7 +37,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  transition: all 0.15s ease-out;
+  transition: all 0s ease-out;
 }
 
 .input {
@@ -47,7 +47,7 @@
   border-bottom-color: var(--attentionColor);
 
   transition: border-bottom-color var(--transitionStyle);
-  transition: all 0.15s ease-out;
+  transition: all 0s ease-out;
 
   &:hover,
   &:focus {
@@ -56,16 +56,16 @@
   }
 
   @media (--viewportMedium) {
-    border-bottom-width: 3px;
+    border-bottom-width: 2px;
   }
 }
 
 .inputSuccess {
-  border-bottom-color: var(--successColor);
+  border-bottom-color: var(--matterColorDark);
 }
 
 .inputError {
-  border-bottom-color: var(--failColor);
+  border-bottom-color: var(--matterColorDark);
 }
 
 .hover {
