@@ -478,7 +478,7 @@ class ManageAvailabilityCalendar extends Component {
                          label="Availability Time From:"
                          startTimestamp="" endTimestamp="" selectedTimestamp={availableFromTimestamp}
                          validate=""
-                         onChange={this.onTimeAvailabilityChange}
+//                         onChange={this.onTimeAvailabilityChange}
             />
           </div>
           <div className={css.timeAvailabilityRow}>
@@ -486,7 +486,7 @@ class ManageAvailabilityCalendar extends Component {
                          label="To:"
                          startTimestamp="" endTimestamp="" selectedTimestamp={availableTillTimestamp}
                          validate=""
-                         onChange={this.onTimeAvailabilityChange}
+//                         onChange={this.onTimeAvailabilityChange}
             />
           </div>
         </div>
