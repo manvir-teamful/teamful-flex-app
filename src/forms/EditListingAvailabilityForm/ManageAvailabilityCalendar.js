@@ -217,7 +217,7 @@ class ManageAvailabilityCalendar extends Component {
 
     this.fetchMonthData = this.fetchMonthData.bind(this);
     this.onDayAvailabilityChange = this.onDayAvailabilityChange.bind(this);
-    this.onTimeAvailabilityChange = this.onTimeAvailabilityChange.bind(this);
+//    this.onTimeAvailabilityChange = this.onTimeAvailabilityChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onFocusChange = this.onFocusChange.bind(this);
     this.onMonthClick = this.onMonthClick.bind(this);
