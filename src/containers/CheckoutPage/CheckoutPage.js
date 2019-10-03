@@ -269,15 +269,21 @@ export class CheckoutPageComponent extends Component {
       const { stripe, card } = handlePaymentParams;
 
       // If paymentIntent exists, order has been initiated previously.
-      return hasPaymentIntents
-        ? Promise.resolve(storedTx)
-        : stripe.createToken(card).then(
+      if(hasPaymentIntents){
+        return Promise.resolve(storedTx);
+      } else {
+        if(card){
+          return stripe.createToken(card).then(
             result => {
               let extParams = fnParams;
               extParams.cardToken = result.token.id;
 
-              return onInitiateOrder(extParams, storedTx.id)
+              return onInitiateOrder(extParams, storedTx.id);
             });
+        } else {
+          return onInitiateOrder(fnParams, storedTx.id);
+        }
+      }
     };
 
     // Step 2: pay using Stripe SDK

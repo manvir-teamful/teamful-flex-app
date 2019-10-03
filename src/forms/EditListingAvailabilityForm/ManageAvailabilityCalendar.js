@@ -306,10 +306,11 @@ class ManageAvailabilityCalendar extends Component {
     }
   }
 
-  onTimeAvailabilityChange(){
+  onTimeAvailabilityChange(event){
     // availFromTimestamp, availTillTimestamp
-    //console.log("onTimeAvailabilityChange");
+    console.log("onTimeAvailabilityChange : " + event);
     //this.setState({ availableFromTimestamp: "333", availableTillTimestamp: "444" });
+    event.stopPropagation();
   }
 
   onDateChange(date) {
@@ -477,7 +478,7 @@ class ManageAvailabilityCalendar extends Component {
                          label="Availability Time From:"
                          startTimestamp="" endTimestamp="" selectedTimestamp={availableFromTimestamp}
                          validate=""
-//                         onChange={this.onTimeAvailabilityChange}
+                         onChange={this.onTimeAvailabilityChange}
             />
           </div>
           <div className={css.timeAvailabilityRow}>
@@ -485,7 +486,7 @@ class ManageAvailabilityCalendar extends Component {
                          label="To:"
                          startTimestamp="" endTimestamp="" selectedTimestamp={availableTillTimestamp}
                          validate=""
-//                         onChange={this.onTimeAvailabilityChange}
+                         onChange={this.onTimeAvailabilityChange}
             />
           </div>
         </div>
