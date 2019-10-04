@@ -406,11 +406,11 @@ class ManageAvailabilityCalendar extends Component {
     const monthName = currentMonth.format('MMMM');
     const classes = classNames(rootClassName || css.root, className);
 
-    let availableFromTimestamp = 0;
+    let availableFromTimestamp = 3600;
     if(availabilityTimes && availabilityTimes.availableFromTimestamp){
       availableFromTimestamp = parseInt(availabilityTimes.availableFromTimestamp);
     }
-    let availableTillTimestamp = 60 * 60 * 24;
+    let availableTillTimestamp = 60 * 60 * 23;
     if(availabilityTimes && availabilityTimes.availableTillTimestamp){
       availableTillTimestamp = parseInt(availabilityTimes.availableTillTimestamp);
     }

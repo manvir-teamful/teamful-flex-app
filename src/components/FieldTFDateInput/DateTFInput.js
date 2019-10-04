@@ -22,6 +22,7 @@ import {
 
 import { IconArrowHead } from '../../components';
 import css from './DateRangeInput.css';
+import fieldCss from './FieldDateRangeInput.css';
 
 export const HORIZONTAL_ORIENTATION = 'horizontal';
 export const ANCHOR_LEFT = 'left';
@@ -187,6 +188,12 @@ class DateTFInputComponent extends Component {
     dateRangePicker.style.display = "none";
     const numberOfPersonsObj = document.querySelector("#" + this.props.numberOfPersonsId);
     numberOfPersonsObj.parentNode.parentNode.click();
+    const dateBorders = document.querySelectorAll("[class*=FieldDateRangeInput_inputBorders]");
+    if(dateBorders && dateBorders[0]){
+      dateBorders[0].classList.add(classNames({ [fieldCss.mobileMargins]: this.props.useMobileMargins }));
+    }
+    this.props.onBlur();
+
 
     this.props.onChange({ startDate: startDateAsDate, endDate: endDateAsDate });
   }

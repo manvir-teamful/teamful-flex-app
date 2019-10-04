@@ -82,12 +82,14 @@ const EditListingAvailabilityPanel = props => {
       <EditListingAvailabilityForm
         className={css.form}
         listingId={currentListing.id}
-        initialValues={{ availabilityPlan }}
+        initialValues={{ availabilityPlan, availabilityTimes }}
         availability={availability}
         availabilityPlan={availabilityPlan}
         availabilityTimes={availabilityTimes}
         onSubmit={(values) => {
-          const { timeFrom, timeTo } = values;
+          let { timeFrom, timeTo } = values;
+          timeFrom = timeFrom || "01:00 AM";
+          timeTo = timeTo || "11:00 PM";
           const timeFromObj = moment.utc(timeFrom, "hh:mm A");
           const timeToObj = moment.utc(timeTo, "hh:mm A");
           const secondsFrom = timeFromObj.hours() * 3600 + timeFromObj.minutes() * 60 + timeFromObj.seconds();
