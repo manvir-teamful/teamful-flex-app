@@ -183,7 +183,7 @@ class DateTFInputComponent extends Component {
     this.setState(() => ({
       currentStartDate: startDateAsDate,
     }));
-
+    
     const dateRangePicker = document.querySelector(".DateRangePicker_picker");
     dateRangePicker.style.display = "none";
     const numberOfPersonsObj = document.querySelector("#" + this.props.numberOfPersonsId);
