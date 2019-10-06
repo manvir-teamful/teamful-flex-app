@@ -194,8 +194,11 @@ export class CheckoutPageComponent extends Component {
       let numOfPersons = 1;
       if(bookingData && bookingData.numberOfPersons) {
         numOfPersons = parseInt(bookingData.numberOfPersons);
+      } else if(pageData && pageData.bookingData && pageData.bookingData.numberOfPersons) {
+        numOfPersons = parseInt(pageData.bookingData.numberOfPersons);
       }
-      const totalPrice = numOfPersons * listing.attributes.price.amount;
+      //const totalPrice = numOfPersons * listing.attributes.price.amount;
+      const totalPrice = numOfPersons * pageData.listing.attributes.price.amount;
 
       // Fetch speculated transaction for showing price in booking breakdown
       // NOTE: if unit type is line-item/units, quantity needs to be added.
@@ -204,12 +207,12 @@ export class CheckoutPageComponent extends Component {
         listingId,
         bookingStart: bookingStartForAPI,
         bookingEnd: bookingEndForAPI,
-        numberOfPersons: bookingData.numberOfPersons,
-        timeSlot: bookingData.timeSlot,
+        numberOfPersons: numOfPersons,
+        timeSlot: pageData.bookingData.timeSlot,
         lineItems: [
           {
             code: LINE_ITEM_DAY,
-            unitPrice: new Money(listing.attributes.price.amount, "CAD"),
+            unitPrice: new Money(pageData.listing.attributes.price.amount, "CAD"),
             lineTotal: new Money(totalPrice, "CAD"),
             quantity: numOfPersons,
           },
