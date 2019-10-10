@@ -61,7 +61,7 @@ export class BookingDatesFormComponent extends Component {
   }
 
   render() {
-    const { rootClassName, className, price: unitPrice, availabilityTimes, ...rest } = this.props;
+    let { rootClassName, className, price: unitPrice, availabilityTimes, ...rest } = this.props;
     const classes = classNames(rootClassName || css.root, className);
 
     if (!unitPrice) {

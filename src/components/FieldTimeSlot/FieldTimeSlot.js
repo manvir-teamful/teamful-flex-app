@@ -35,7 +35,8 @@ const FieldTimeSlot = props => {
     timeLabels.push(momentZero.format("hh:mm A"));
     momentZero.add(30, "minutes");
   }
-
+  console.log("FieldTimeSlot.defaultValue");
+  console.log(selectedTimeVal);
   const selectProps = {
     defaultValue: selectedTimeVal,
     ...rest,

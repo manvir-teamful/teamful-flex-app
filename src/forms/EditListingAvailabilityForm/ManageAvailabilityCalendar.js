@@ -198,6 +198,14 @@ const makeDraftException = (exceptions, start, end, seats) => {
   return { availabilityException: draft };
 };
 
+const checkAvailabilityTimes = () => {
+  return !!window.localStorage.getItem("availabilityTimes");
+};
+
+const restoreAvailabilityTimes = () => {
+  return JSON.parse(window.localStorage.getItem("availabilityTimes"));
+};
+
 ////////////////////////////////
 // ManageAvailabilityCalendar //
 ////////////////////////////////
@@ -413,6 +421,12 @@ class ManageAvailabilityCalendar extends Component {
     let availableTillTimestamp = 60 * 60 * 23;
     if(availabilityTimes && availabilityTimes.availableTillTimestamp){
       availableTillTimestamp = parseInt(availabilityTimes.availableTillTimestamp);
+    }
+
+    if(checkAvailabilityTimes()) {
+      const storedAvailTimes = restoreAvailabilityTimes();
+      availableFromTimestamp = storedAvailTimes.availableFromTimestamp;
+      availableTillTimestamp = storedAvailTimes.availableTillTimestamp;
     }
 
     return (

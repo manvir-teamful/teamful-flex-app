@@ -46,7 +46,9 @@ export class EditListingAvailabilityFormComponent extends Component {
           const submitDisabled = invalid || disabled || submitInProgress;
 
           return (
-            <Form className={classes} onSubmit={handleSubmit}>
+            <Form className={classes}
+                  onSubmit={e => { handleSubmit(e); }}
+            >
               {errorMessage}
               <div className={css.calendarWrapper}>
                 <ManageAvailabilityCalendar
@@ -87,6 +89,7 @@ EditListingAvailabilityFormComponent.propTypes = {
   updateInProgress: bool.isRequired,
   availability: object.isRequired,
   availabilityPlan: propTypes.availabilityPlan.isRequired,
+  availabilityTimes: object.isRequired,
 };
 
 export default compose(injectIntl)(EditListingAvailabilityFormComponent);

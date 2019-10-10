@@ -241,7 +241,8 @@ export default function reducer(state = initialState, action = {}) {
     case SHOW_LISTINGS_REQUEST:
       return { ...state, showListingsError: null };
     case SHOW_LISTINGS_SUCCESS:
-      return { ...initialState, availabilityCalendar: { ...state.availabilityCalendar } };
+      return { ...initialState, availabilityCalendar: { ...state.availabilityCalendar },
+               availabilityTimes: { ...state.availabilityTimes }};
 
     case SHOW_LISTINGS_ERROR:
       // eslint-disable-next-line no-console
@@ -469,6 +470,17 @@ export function requestShowListing(actionPayload) {
   };
 }
 
+export function requestShowAvailListing(actionPayload) {
+  return (dispatch, getState, sdk) => {
+    return sdk.ownListings
+      .show(actionPayload)
+      .then(response => {
+        return response;
+      })
+      .catch(e => dispatch(showListingsError(storableError(e))));
+  };
+}
+
 export function requestCreateListingDraft(data) {
   return (dispatch, getState, sdk) => {
     dispatch(createListingDraft(data));
@@ -639,7 +651,12 @@ export function requestUpdateListing(tab, data) {
           include: ['author', 'images'],
           'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
         };
-        return dispatch(requestShowListing(payload));
+        if(tab === "availability"){
+          //return dispatch(markTabUpdated(tab));
+          return dispatch(requestShowAvailListing(payload));
+        } else {
+          return dispatch(requestShowListing(payload));
+        }
       })
       .then(() => {
         dispatch(markTabUpdated(tab));
@@ -668,6 +685,10 @@ export function loadData(params) {
       include: ['author', 'images'],
       'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
     };
-    return dispatch(requestShowListing(payload));
+    if(params.tab === "availability"){
+      return dispatch(requestShowAvailListing(payload));
+    } else {
+      return dispatch(requestShowListing(payload));
+    }
   };
 }
