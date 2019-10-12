@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { FieldSelect } from '../../components';
 import classNames from 'classnames';
@@ -35,13 +36,13 @@ const FieldTimeSlot = props => {
     timeLabels.push(momentZero.format("hh:mm A"));
     momentZero.add(30, "minutes");
   }
-  console.log("FieldTimeSlot.defaultValue");
-  console.log(selectedTimeVal);
   const selectProps = {
     defaultValue: selectedTimeVal,
+    value: selectedTimeVal,
     ...rest,
   };
-
+  console.log("FieldTimeSlot.selectProps");
+  console.log(selectProps);
   const selectClasses = classNames({ [css.mobileMargins]: useMobileMargins });
 
   return (
@@ -51,9 +52,12 @@ const FieldTimeSlot = props => {
           return <option key={optIndex} value={timeVal}>{timeVal}</option>
         })}
       </FieldSelect>
+      <span>{selectedTimeVal}</span>
     </div>
   );
 };
+
+const { string } = PropTypes;
 
 FieldTimeSlot.propTypes = {
   intl: intlShape.isRequired,

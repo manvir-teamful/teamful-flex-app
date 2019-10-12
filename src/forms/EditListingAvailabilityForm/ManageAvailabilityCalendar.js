@@ -198,13 +198,13 @@ const makeDraftException = (exceptions, start, end, seats) => {
   return { availabilityException: draft };
 };
 
-const checkAvailabilityTimes = () => {
-  return !!window.localStorage.getItem("availabilityTimes");
-};
+//const checkAvailabilityTimes = () => {
+//  return !!window.localStorage.getItem("availabilityTimes");
+//};
 
-const restoreAvailabilityTimes = () => {
-  return JSON.parse(window.localStorage.getItem("availabilityTimes"));
-};
+//const restoreAvailabilityTimes = () => {
+//  return JSON.parse(window.localStorage.getItem("availabilityTimes"));
+//};
 
 ////////////////////////////////
 // ManageAvailabilityCalendar //
@@ -380,6 +380,10 @@ class ManageAvailabilityCalendar extends Component {
   }
 
   render() {
+
+    console.log("ManageAvailabilityCalendar.render() this.props");
+    console.log(this.props);
+
     const {
       className,
       rootClassName,
@@ -423,11 +427,11 @@ class ManageAvailabilityCalendar extends Component {
       availableTillTimestamp = parseInt(availabilityTimes.availableTillTimestamp);
     }
 
-    if(checkAvailabilityTimes()) {
-      const storedAvailTimes = restoreAvailabilityTimes();
-      availableFromTimestamp = storedAvailTimes.availableFromTimestamp;
-      availableTillTimestamp = storedAvailTimes.availableTillTimestamp;
-    }
+    //if(checkAvailabilityTimes()) {
+    //  const storedAvailTimes = restoreAvailabilityTimes();
+    //  availableFromTimestamp = storedAvailTimes.availableFromTimestamp;
+    //  availableTillTimestamp = storedAvailTimes.availableTillTimestamp;
+    //}
 
     return (
       <div
@@ -504,6 +508,8 @@ class ManageAvailabilityCalendar extends Component {
             />
           </div>
         </div>
+        <span className={css.legendText}>{availableFromTimestamp + " "}</span>&nbsp;
+        <span className={css.legendText}>{availableTillTimestamp}</span>
           {fetchExceptionsError && fetchBookingsError ? (
           <p className={css.error}>
             <FormattedMessage

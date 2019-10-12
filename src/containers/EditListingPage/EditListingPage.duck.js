@@ -5,6 +5,7 @@ import { isSameDate, monthIdStringInUTC } from '../../util/dates';
 import { storableError } from '../../util/errors';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 import * as log from '../../util/log';
+import moment from 'moment';
 
 const { UUID } = sdkTypes;
 
@@ -97,6 +98,7 @@ const errorAction = actionType => error => ({ type: actionType, payload: error, 
 
 export const MARK_TAB_UPDATED = 'app/EditListingPage/MARK_TAB_UPDATED';
 export const CLEAR_UPDATED_TAB = 'app/EditListingPage/CLEAR_UPDATED_TAB';
+export const FORCE_PAGE_RERENDER = 'app/EditListingPage/FORCE_PAGE_RERENDER';
 
 export const CREATE_LISTING_DRAFT_REQUEST = 'app/EditListingPage/CREATE_LISTING_DRAFT_REQUEST';
 export const CREATE_LISTING_DRAFT_SUCCESS = 'app/EditListingPage/CREATE_LISTING_DRAFT_SUCCESS';
@@ -177,6 +179,8 @@ export default function reducer(state = initialState, action = {}) {
     case CLEAR_UPDATED_TAB:
       return { ...state, updatedTab: null, updateListingError: null };
 
+    case FORCE_PAGE_RERENDER:
+      return { ...state, rerenderTimestamp: moment().valueOf() };
     case CREATE_LISTING_DRAFT_REQUEST:
       return {
         ...state,
@@ -232,7 +236,9 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case UPDATE_LISTING_REQUEST:
-      return { ...state, updateInProgress: true, updateListingError: null };
+      return { ...state, updateInProgress: true, updateListingError: null,
+               //availabilityTimes: { ...payload.params.publicData.availabilityTimes }
+             };
     case UPDATE_LISTING_SUCCESS:
       return { ...state, updateInProgress: false };
     case UPDATE_LISTING_ERROR:
@@ -393,6 +399,10 @@ export const clearUpdatedTab = () => ({
   type: CLEAR_UPDATED_TAB,
 });
 
+export const forcePageRerender = () => ({
+  type: FORCE_PAGE_RERENDER,
+});
+
 export const updateImageOrder = imageOrder => ({
   type: UPDATE_IMAGE_ORDER,
   payload: { imageOrder },
@@ -464,17 +474,6 @@ export function requestShowListing(actionPayload) {
         dispatch(addMarketplaceEntities(response));
         // In case of success, we'll clear state.EditListingPage (user will be redirected away)
         dispatch(showListingsSuccess(response));
-        return response;
-      })
-      .catch(e => dispatch(showListingsError(storableError(e))));
-  };
-}
-
-export function requestShowAvailListing(actionPayload) {
-  return (dispatch, getState, sdk) => {
-    return sdk.ownListings
-      .show(actionPayload)
-      .then(response => {
         return response;
       })
       .catch(e => dispatch(showListingsError(storableError(e))));
@@ -651,16 +650,12 @@ export function requestUpdateListing(tab, data) {
           include: ['author', 'images'],
           'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
         };
-        if(tab === "availability"){
-          //return dispatch(markTabUpdated(tab));
-          return dispatch(requestShowAvailListing(payload));
-        } else {
-          return dispatch(requestShowListing(payload));
-        }
+        return dispatch(requestShowListing(payload));
       })
       .then(() => {
         dispatch(markTabUpdated(tab));
         dispatch(updateListingSuccess(updateResponse));
+        dispatch(forcePageRerender());
         return updateResponse;
       })
       .catch(e => {
@@ -685,10 +680,7 @@ export function loadData(params) {
       include: ['author', 'images'],
       'fields.image': ['variants.landscape-crop', 'variants.landscape-crop2x'],
     };
-    if(params.tab === "availability"){
-      return dispatch(requestShowAvailListing(payload));
-    } else {
-      return dispatch(requestShowListing(payload));
-    }
+
+    return dispatch(requestShowListing(payload));
   };
 }

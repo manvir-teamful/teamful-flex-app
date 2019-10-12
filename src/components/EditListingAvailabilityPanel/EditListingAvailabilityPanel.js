@@ -9,11 +9,11 @@ import { EditListingAvailabilityForm } from '../../forms';
 import css from './EditListingAvailabilityPanel.css';
 const moment = require('moment');
 
-const saveAvailabilityTimes = (availableFromTimestamp, availableTillTimestamp) => {
-  const availTimes = { availableFromTimestamp: availableFromTimestamp,
-                           availableTillTimestamp: availableTillTimestamp };
-  window.localStorage.setItem("availabilityTimes", JSON.stringify(availTimes));
-};
+//const saveAvailabilityTimes = (availableFromTimestamp, availableTillTimestamp) => {
+//  const availTimes = { availableFromTimestamp: availableFromTimestamp,
+//                           availableTillTimestamp: availableTillTimestamp };
+//  window.localStorage.setItem("availabilityTimes", JSON.stringify(availTimes));
+//};
 
 const EditListingAvailabilityPanel = props => {
   const {
@@ -73,7 +73,7 @@ const EditListingAvailabilityPanel = props => {
     availabilityTimes = defaultAvailabilityTimes;
   }
 
-  saveAvailabilityTimes(availabilityTimes.availableFromTimestamp, availabilityTimes.availableTillTimestamp);
+  //saveAvailabilityTimes(availabilityTimes.availableFromTimestamp, availabilityTimes.availableTillTimestamp);
 
   return (
     <div className={classes}>
@@ -107,7 +107,7 @@ const EditListingAvailabilityPanel = props => {
           }
           const newAvailabilityTimes = { availableFromTimestamp: secondsFrom,
                                          availableTillTimestamp: secondsTo };
-          saveAvailabilityTimes(secondsFrom, secondsFrom);
+          // saveAvailabilityTimes(secondsFrom, secondsFrom);
           // We save the default availability plan
           // I.e. this listing is available every night.
           // Exceptions are handled with live edit through a calendar,
