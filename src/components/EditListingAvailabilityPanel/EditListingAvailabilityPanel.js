@@ -61,7 +61,7 @@ const EditListingAvailabilityPanel = props => {
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
 
   const defaultAvailabilityTimes =
-    { availableFromTimestamp: 60 * 60 * 9, availableTillTimestamp: 60 * 60 * 18 };
+    { availableFromTimestamp: 60 * 60 * 1, availableTillTimestamp: 60 * 60 * 23 };
   let availabilityTimes;
   if(currentListing && currentListing.attributes && currentListing.attributes.publicData &&
      currentListing.attributes.publicData.availabilityTimes &&
