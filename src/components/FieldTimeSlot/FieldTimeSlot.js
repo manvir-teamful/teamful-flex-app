@@ -41,8 +41,7 @@ const FieldTimeSlot = props => {
     value: selectedTimeVal,
     ...rest,
   };
-  console.log("FieldTimeSlot.selectProps");
-  console.log(selectProps);
+
   const selectClasses = classNames({ [css.mobileMargins]: useMobileMargins });
 
   return (

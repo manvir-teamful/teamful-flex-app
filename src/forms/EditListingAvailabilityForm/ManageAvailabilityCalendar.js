@@ -380,10 +380,6 @@ class ManageAvailabilityCalendar extends Component {
   }
 
   render() {
-
-    console.log("ManageAvailabilityCalendar.render() this.props");
-    console.log(this.props);
-
     const {
       className,
       rootClassName,

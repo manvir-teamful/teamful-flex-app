@@ -16,10 +16,7 @@ const FieldSelectComponent = props => {
   if(!input.value && !!props.selectValue){
     input.value = props.selectValue;
   }
-  console.log("FieldSelectComponent.input");
-  console.log(input);
-  console.log("FieldSelectComponent.props");
-  console.log(props);
+
   const { valid, invalid, touched, error } = meta;
 
   // Error message and input error styles are only shown if the
@@ -69,9 +66,6 @@ FieldSelectComponent.propTypes = {
 };
 
 const FieldSelect = props => {
-  console.log("FieldSelect.props");
-  console.log(props);
-
   const fsProps = { selectValue: props.value, ...props };
 
   return <Field component={FieldSelectComponent} {...fsProps} />;
