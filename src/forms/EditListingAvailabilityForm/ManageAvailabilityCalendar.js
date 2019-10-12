@@ -504,8 +504,6 @@ class ManageAvailabilityCalendar extends Component {
             />
           </div>
         </div>
-        <span className={css.legendText}>{availableFromTimestamp + " "}</span>&nbsp;
-        <span className={css.legendText}>{availableTillTimestamp}</span>
           {fetchExceptionsError && fetchBookingsError ? (
           <p className={css.error}>
             <FormattedMessage

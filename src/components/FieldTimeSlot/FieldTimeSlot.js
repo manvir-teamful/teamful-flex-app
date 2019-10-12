@@ -51,7 +51,6 @@ const FieldTimeSlot = props => {
           return <option key={optIndex} value={timeVal}>{timeVal}</option>
         })}
       </FieldSelect>
-      <span>{selectedTimeVal}</span>
     </div>
   );
 };
