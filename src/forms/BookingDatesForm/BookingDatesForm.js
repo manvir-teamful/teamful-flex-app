@@ -41,6 +41,7 @@ export class BookingDatesFormComponent extends Component {
     let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
 
     endDateObj.style.color = "white";
+    endDateObj.style.fontSize = "0px";
     endDateObj.onfocus = () => { startDateObj.focus(); }
   }
 
