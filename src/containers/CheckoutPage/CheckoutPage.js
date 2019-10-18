@@ -420,6 +420,7 @@ export class CheckoutPageComponent extends Component {
       bookingEnd: tx.booking.attributes.end,
       numberOfPersons: pageData.bookingData.numberOfPersons,
       timeSlot: pageData.bookingData.timeSlot,
+      protectedData: {startTime: pageData.bookingData.timeSlot},
       lineItems: [
         {
           code: LINE_ITEM_DAY,
@@ -632,6 +633,9 @@ export class CheckoutPageComponent extends Component {
     // (i.e. have an id)
     const tx = existingTransaction.booking ? existingTransaction : speculatedTransaction;
     const txBooking = ensureBooking(tx.booking);
+    if(typeof this.props.bookingData !== "undefined" && !!this.props.bookingData) {
+      this.props.bookingData.startTime = ",   " + this.props.bookingData.timeSlot;
+    }
     const breakdown =
       tx.id && txBooking.id ? (
         <BookingBreakdown
@@ -640,6 +644,7 @@ export class CheckoutPageComponent extends Component {
           unitType={config.bookingUnitType}
           transaction={tx}
           booking={txBooking}
+          bookingData={this.props.bookingData}
         />
       ) : null;
 

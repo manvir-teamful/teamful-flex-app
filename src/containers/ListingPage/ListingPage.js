@@ -103,7 +103,9 @@ export class ListingPageComponent extends Component {
 
     const { bookingDates, ...initBookingData } = values;
 
-    let bookingData = {numberOfPersons: 1, timeSlot: "12:00"};
+    let bookingData = {numberOfPersons: 1, timeSlot: "12:00 PM"};
+    console.log("ListingPage.handleSubmit.props");
+    console.log(this.props);
     // eslint-disable-next-line
     for(let bookingExtraField in initBookingData){
       if( /number-of-persons-[0-9]+/.test(bookingExtraField)){

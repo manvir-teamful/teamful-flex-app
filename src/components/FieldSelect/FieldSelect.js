@@ -13,7 +13,7 @@ const FieldSelectComponent = props => {
     throw new Error('id required when a label is given');
   }
 
-  if(!input.value && !!props.selectValue){
+  if(!input.value && typeof props.selectValue !== 'undefined' && !!props.selectValue){
     input.value = props.selectValue;
   }
 

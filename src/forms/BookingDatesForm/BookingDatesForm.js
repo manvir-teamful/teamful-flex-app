@@ -49,6 +49,15 @@ export class BookingDatesFormComponent extends Component {
   // focus on that input, otherwise continue with the
   // default handleSubmit function.
   handleFormSubmit(e) {
+    console.log("BookingDatesForm.handleFormSubmit.e");
+    console.log(e);
+
+    const startTime = e[this.timeSlotId] && e[this.timeSlotId] !== "Invalid date"
+      ? ",   " + e[this.timeSlotId]
+      : ",   " + moment.utc(this.props.availabilityTimes.availableFromTimestamp * 1000).format("hh:mm A");
+    const eP = { ...e };
+    eP.timeSlot = startTime;
+
     const { startDate, endDate } = e.bookingDates || {};
     if (!startDate) {
       e.preventDefault();
@@ -57,7 +66,7 @@ export class BookingDatesFormComponent extends Component {
       e.preventDefault();
       this.setState({ focusedInput: END_DATE });
     } else {
-      this.props.onSubmit(e);
+      this.props.onSubmit(eP);
     }
   }
 
@@ -107,6 +116,12 @@ export class BookingDatesFormComponent extends Component {
             fetchTimeSlotsError,
           } = fieldRenderProps;
           const { startDate, endDate } = values && values.bookingDates ? values.bookingDates : {};
+          const startTime = values && values[this.timeSlotId] && values[this.timeSlotId] !== "Invalid date"
+                            ? ",   " + values[this.timeSlotId]
+                            : ",   " + moment.utc(availabilityTimes.availableFromTimestamp * 1000).format("hh:mm A");
+          if(!values[this.timeSlotId] || values[this.timeSlotId] === "Invalid date"){
+            values[this.timeSlotId] = moment.utc(availabilityTimes.availableFromTimestamp * 1000).format("hh:mm A");
+          }
 
           const bookingStartLabel = intl.formatMessage({
             id: 'BookingDatesForm.bookingStartTitle',
@@ -148,6 +163,8 @@ export class BookingDatesFormComponent extends Component {
                   // NOTE: If unitType is `line-item/units`, a new picker
                   // for the quantity should be added to the form.
                   quantity: numOfPersons,
+                  startTime: startTime,
+                  timeSlot: startTime
                 }
               : null;
           const bookingInfo = bookingData ? (

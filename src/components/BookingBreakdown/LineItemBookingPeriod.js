@@ -7,15 +7,23 @@ import { daysBetween, dateFromAPIToLocalNoon } from '../../util/dates';
 import css from './BookingBreakdown.css';
 
 const BookingPeriod = props => {
-  const { isSingleDay, startDate, endDate } = props;
+  let { isSingleDay, startDate, endDate, startTime } = props;
   const dateFormatOptions = {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
   };
+  if(typeof startTime === "undefined" || !startTime){
+    startTime = "";
+  }
 
   if (isSingleDay) {
-    return <FormattedDate value={startDate} {...dateFormatOptions} />;
+    return (
+      <span className={css.nowrap}>
+        <FormattedDate value={startDate} {...dateFormatOptions} />
+        {startTime}
+      </span>
+    );
   }
 
   return (
@@ -46,6 +54,7 @@ const LineItemBookingPeriod = props => {
   // where there are preparation time needed between bookings.
   // Read more: https://www.sharetribe.com/api-reference/#bookings
   const { start, end, displayStart, displayEnd } = booking.attributes;
+  const startTime = bookingData && typeof bookingData.startTime !== "undefined" ? bookingData.startTime : "";
   const localStartDate = dateFromAPIToLocalNoon(displayStart || start);
   const localEndDateRaw = dateFromAPIToLocalNoon(displayEnd || end);
 
@@ -75,7 +84,8 @@ const LineItemBookingPeriod = props => {
   return (
     <div className={css.lineItem}>
       <span className={css.itemLabel}>
-        <BookingPeriod isSingleDay={isSingleDay} startDate={localStartDate} endDate={endDay} />
+        <BookingPeriod isSingleDay={isSingleDay} startDate={localStartDate} endDate={endDay}
+                       startTime={startTime}/>
       </span>
       <span className={css.itemValue}>{unitCountMessage}</span>
     </div>
