@@ -152,7 +152,7 @@ class DateRangeInputComponent extends Component {
   }
 
   componentDidMount() {
-    document.getElementById("")
+
   }
 
   onDatesChange(dates) {

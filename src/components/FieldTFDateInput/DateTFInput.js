@@ -152,7 +152,7 @@ class DateTFInputComponent extends Component {
   }
 
   componentDidMount() {
-    document.getElementById("")
+
   }
   /* eslint-disable no-unused-vars */
   onDatesChange(dates) {
@@ -184,16 +184,17 @@ class DateTFInputComponent extends Component {
       currentStartDate: startDateAsDate,
     }));
 
-    const dateRangePicker = document.querySelector(".DateRangePicker_picker");
-    dateRangePicker.style.display = "none";
-    const numberOfPersonsObj = document.querySelector("#" + this.props.numberOfPersonsId);
-    numberOfPersonsObj.parentNode.parentNode.click();
-    const dateBorders = document.querySelectorAll("[class*=FieldDateRangeInput_inputBorders]");
-    if(dateBorders && dateBorders[0]){
-      dateBorders[0].classList.add(classNames({ [fieldCss.mobileMargins]: this.props.useMobileMargins }));
+    if(typeof document !== "undefined") {
+      const dateRangePicker = document.querySelector(".DateRangePicker_picker");
+      dateRangePicker.style.display = "none";
+      const numberOfPersonsObj = document.querySelector("#" + this.props.numberOfPersonsId);
+      numberOfPersonsObj.parentNode.parentNode.click();
+      const dateBorders = document.querySelectorAll("[class*=FieldDateRangeInput_inputBorders]");
+      if (dateBorders && dateBorders[0]) {
+        dateBorders[0].classList.add(classNames({[fieldCss.mobileMargins]: this.props.useMobileMargins}));
+      }
+      this.props.onBlur();
     }
-    this.props.onBlur();
-
 
     this.props.onChange({ startDate: startDateAsDate, endDate: endDateAsDate });
   }

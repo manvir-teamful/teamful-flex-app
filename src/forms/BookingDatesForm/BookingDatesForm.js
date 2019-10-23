@@ -37,12 +37,16 @@ export class BookingDatesFormComponent extends Component {
   }
 
   componentDidMount(){
-    let startDateObj = document.getElementById(`${this.props.formId}.bookingStartDate`);
-    let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
+    if(typeof document !== "undefined"){
+      let startDateObj = document.getElementById(`${this.props.formId}.bookingStartDate`);
+      let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
 
-    endDateObj.style.color = "white";
-    endDateObj.style.fontSize = "0px";
-    endDateObj.onfocus = () => { startDateObj.focus(); }
+      endDateObj.style.color = "white";
+      endDateObj.style.fontSize = "0px";
+      endDateObj.onfocus = () => {
+        startDateObj.focus();
+      }
+    }
   }
 
   // In case start or end date for the booking is missing
@@ -138,11 +142,13 @@ export class BookingDatesFormComponent extends Component {
           ) : null;
 
           let numOfPersons = 1;
-          const numOfPersonsObj = document.getElementById(this.numberOfPersonsId);
-          if(numOfPersonsObj) {
-            const numOfPersonsVal = numOfPersonsObj.value;
-            if(/^[0-9]+$/.test(numOfPersonsVal)) {
-              numOfPersons = parseInt(numOfPersonsVal, 10);
+          if(typeof document !== "undefined") {
+            const numOfPersonsObj = document.getElementById(this.numberOfPersonsId);
+            if (numOfPersonsObj) {
+              const numOfPersonsVal = numOfPersonsObj.value;
+              if (/^[0-9]+$/.test(numOfPersonsVal)) {
+                numOfPersons = parseInt(numOfPersonsVal, 10);
+              }
             }
           }
 
