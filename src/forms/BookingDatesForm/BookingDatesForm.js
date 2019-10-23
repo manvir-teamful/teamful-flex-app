@@ -49,9 +49,6 @@ export class BookingDatesFormComponent extends Component {
   // focus on that input, otherwise continue with the
   // default handleSubmit function.
   handleFormSubmit(e) {
-    console.log("BookingDatesForm.handleFormSubmit.e");
-    console.log(e);
-
     const startTime = e[this.timeSlotId] && e[this.timeSlotId] !== "Invalid date"
       ? ",   " + e[this.timeSlotId]
       : ",   " + moment.utc(this.props.availabilityTimes.availableFromTimestamp * 1000).format("hh:mm A");

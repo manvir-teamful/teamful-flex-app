@@ -268,7 +268,6 @@ export class CheckoutPageComponent extends Component {
       // fnParams should be { listingId, bookingStart, bookingEnd }
       const hasPaymentIntents =
         storedTx.attributes.protectedData && storedTx.attributes.protectedData.stripePaymentIntents;
-
       const { stripe, card } = handlePaymentParams;
 
       // If paymentIntent exists, order has been initiated previously.
@@ -299,7 +298,6 @@ export class CheckoutPageComponent extends Component {
         storeData(bookingData, bookingDates, listing, order, STORAGE_KEY);
         this.setState({ pageData: { ...pageData, transaction: order } });
       }
-
       const hasPaymentIntents =
         order.attributes.protectedData && order.attributes.protectedData.stripePaymentIntents;
 
@@ -419,8 +417,7 @@ export class CheckoutPageComponent extends Component {
       bookingStart: tx.booking.attributes.start,
       bookingEnd: tx.booking.attributes.end,
       numberOfPersons: pageData.bookingData.numberOfPersons,
-      timeSlot: pageData.bookingData.timeSlot,
-      protectedData: {startTime: pageData.bookingData.timeSlot},
+      startTime: pageData.bookingData.timeSlot,
       lineItems: [
         {
           code: LINE_ITEM_DAY,

@@ -162,16 +162,22 @@ export const stripeCustomerError = e => ({
 export const initiateOrder = (orderParams, transactionId) => (dispatch, getState, sdk) => {
   dispatch(initiateOrderRequest());
 
+  let orderParamsExt = {...orderParams};
+  if(typeof orderParamsExt.startTime != "undefined" && orderParamsExt.startTime){
+    orderParamsExt.protectedData = { startTime: orderParamsExt.startTime };
+    delete orderParamsExt.startTime;
+  }
+
   const bodyParams = transactionId
     ? {
         id: transactionId,
         transition: TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
-        params: orderParams,
+        params: orderParamsExt,
       }
     : {
         processAlias: config.bookingProcessAlias,
         transition: TRANSITION_REQUEST_PAYMENT,
-        params: orderParams,
+        params: orderParamsExt,
       };
   const queryParams = {
     include: ['booking', 'provider'],
