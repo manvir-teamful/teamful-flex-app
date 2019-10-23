@@ -37,15 +37,13 @@ export class BookingDatesFormComponent extends Component {
   }
 
   componentDidMount(){
-    if(typeof document !== "undefined"){
-      let startDateObj = document.getElementById(`${this.props.formId}.bookingStartDate`);
-      let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
+    let startDateObj = document.getElementById(`${this.props.formId}.bookingStartDate`);
+    let endDateObj = document.getElementById(`${this.props.formId}.bookingEndDate`);
 
-      endDateObj.style.color = "white";
-      endDateObj.style.fontSize = "0px";
-      endDateObj.onfocus = () => {
-        startDateObj.focus();
-      }
+    endDateObj.style.color = "white";
+    endDateObj.style.fontSize = "0px";
+    endDateObj.onfocus = () => {
+      startDateObj.focus();
     }
   }
 
